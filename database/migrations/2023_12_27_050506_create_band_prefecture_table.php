@@ -13,15 +13,8 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('users', function (Blueprint $table) {
-            $table->id();
-            $table->string('name');
-            $table->string('email')->unique();
-            $table->timestamp('email_verified_at')->nullable();
-            $table->string('password');
-            $table->rememberToken();
-            $table->integer('level');
-            $table->string('introduction', 100);
+        Schema::create('band_prefecture', function (Blueprint $table) {
+            $table->foreignId('prefecture_id')->constrained('prefectures');
             $table->timestamps();
         });
     }
@@ -33,6 +26,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('users');
+        Schema::dropIfExists('band_prefecture');
     }
 };
