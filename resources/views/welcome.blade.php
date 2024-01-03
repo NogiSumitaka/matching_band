@@ -105,6 +105,9 @@
                         </div>
                     @endforeach
                 </div>
+                <div class="paginate">
+                    {{ $bands->links() }}
+                </div>
             </div>
         </div>
     </body>
