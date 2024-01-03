@@ -25,19 +25,19 @@
             <!-- Header -->
             <div class="flex flex-row-reverse">
                 <div class="bg-green-100 pl-2">
-                    <a href="{{ url('/posts/create') }}">募集作成</a>
+                    <a href="{{ url('/create_band') }}">募集作成</a>
                 </div>
                 <div class="">
-                    <a href="{{ url('/mypage/apply') }}">応募状況</a>
+                    <a href="{{ url('/profile/apply') }}">応募状況</a>
                 </div>
                 <div class="">
-                    <a href="{{ url('/dashboard') }}">Matching Band</a>
+                    <a href="{{ url('/') }}">Matching Band</a>
                 </div>
                 <div class="">
                     <a href="{{ route('login') }}" class="text-sm text-gray-900 dark:text-gray-500 underline">Log in</a>
                 </div>
                 <div class="">
-                    <a href="{{ url('/mypage') }}" class="text-sm text-gray-700 dark:text-gray-500 underline">Mypage</a>
+                    <a href="{{ url('/profile') }}" class="text-sm text-gray-700 dark:text-gray-500 underline">Mypage</a>
                 </div>
                 　　<!-- @if (Route::has('login'))
                 　　      <div class="hidden fixed top-0 right-0 px-6 py-4 sm:block">
@@ -102,6 +102,7 @@
                             <p class="body">募集しているパート：drum</p>
                             <p class="body">演奏レベル:{{ $band->level }}</p>
                             <p class="body">{{ $band->introduction }}</p>
+                            <div><a href="/welcome/{{ $band->id}}">詳細</a></div>
                         </div>
                     @endforeach
                 </div>

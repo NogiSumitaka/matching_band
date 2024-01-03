@@ -3,7 +3,6 @@
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BandController;
-
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -16,6 +15,9 @@ use App\Http\Controllers\BandController;
 */
 
 Route::get('/', [BandController::class, 'index']);
+Route::get('/welcome/{band}',[BandController::class, 'show']);
+Route::get('/create_band', [BandController::class, 'create']);
+Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
 
 Route::get('/dashboard', function () {
     return view('dashboard');
