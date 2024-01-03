@@ -14,4 +14,9 @@
             </div>
         </div>
     </div>
+    <div class="flex flex-row-reverse">
+        <div class="bg-green-100 py-4 pl-4">1</div>
+        <div class="bg-green-100 py-4 pl-4">2</div>
+        <div class="bg-green-100 py-4 pl-4">3</div>
+    </div>
 </x-app-layout>
