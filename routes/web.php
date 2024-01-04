@@ -15,8 +15,9 @@ use App\Http\Controllers\BandController;
 */
 
 Route::get('/', [BandController::class, 'index']);
-Route::get('/welcome/{band}',[BandController::class, 'show']);
 Route::get('/create_band', [BandController::class, 'create']);
+Route::post('/bands',[BandController::class, 'store']);
+Route::get('/welcome/{band}',[BandController::class, 'show']);
 Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
 
 Route::get('/dashboard', function () {
