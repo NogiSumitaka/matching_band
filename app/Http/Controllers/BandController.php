@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use App\Models\Band;
 use App\Models\Genre;
 use App\Models\Prefecture;
@@ -10,8 +11,11 @@ use Illuminate\Http\Request;
 
 class BandController extends Controller
 {
-    public function index(Band $band){
-        return view('welcome')->with(['bands' => $band->getPaginateByLimit()]);
+    public function index(Request $request, Band $band){
+        return view('welcome')->with([
+            'bands' => $band->getPaginateByLimit(),
+            'user' => $request->user(),
+            ]);
     }
     
     public function show(Band $band){
@@ -30,9 +34,11 @@ class BandController extends Controller
     {
         $input_band = $request['band'];
         $input_genre = $request->genres_array;
+        $input_inst = $request->insts_array;
         
         $band->fill($input_band)->save();
         $band->genres()->attach($input_genre);
+        $band->insts()->attach($input_inst);
         return redirect('/');
     }
 }

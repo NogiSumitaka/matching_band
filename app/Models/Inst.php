@@ -8,4 +8,12 @@ use Illuminate\Database\Eloquent\Model;
 class Inst extends Model
 {
     use HasFactory;
+    
+    public function bands(){
+        return $this->belongsToMany(Band::class)->withTimestamps();
+    }
+    
+    public function users(){
+        return $this->belongsToMany(User::class)->withTimestamps();
+    }
 }

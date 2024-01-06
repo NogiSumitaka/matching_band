@@ -23,4 +23,12 @@ class Band extends Model
     public function genres(){
         return $this->belongsToMany(Genre::class);
     }
+    
+    public function prefectures(){
+        return $this->belongsToMany(Prefecture::class);
+    }
+    
+    public function insts(){
+        return $this->belongsToMany(Inst::class);
+    }
 }
