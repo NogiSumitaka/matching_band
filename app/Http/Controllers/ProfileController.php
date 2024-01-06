@@ -8,23 +8,53 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\View\View;
+use App\Models\User;
+use App\Models\Genre;
+use App\Models\Prefecture;
+use App\Models\Inst;
 
 class ProfileController extends Controller
 {
     /**
      * Display the user's profile form.
      */
-    public function edit(Request $request): View
+    public function show(User $user, Genre $genre, Prefecture $prefecture, Inst $inst){
+        return view('profile.show_profile')->with([
+            'user' => $user,
+            'genre' => $genre,
+            'prefecture' => $prefecture,
+            'inst' => $inst,
+            ]);
+    }
+    
+    public function edit(Request $request, Genre $genre, Prefecture $prefecture, Inst $inst): View
     {
         return view('profile.edit', [
             'user' => $request->user(),
+            'genres' => $genre->get(),
+            'prefectures' => $prefecture->get(),
+            'insts' => $inst->get(),
         ]);
+    }
+    
+    public function update(Request $request, User $user)
+    {
+        $input_user = $request['user'];
+        $input_genre = $request->genres_array;
+        $input_prefecture = $request->prefecture;
+        $input_inst = $request->insts_array;
+        
+        $user->fill($input_user)->save();
+        $user->genres()->sync($input_genre);
+        $user->prefectures()->sync($input_prefecture);
+        $user->insts()->sync($input_inst);
+        return redirect('/profile');
     }
 
     /**
      * Update the user's profile information.
      */
-    public function update(ProfileUpdateRequest $request): RedirectResponse
+    /**public function update(ProfileUpdateRequest $request): RedirectResponse
     {
         $request->user()->fill($request->validated());
 
@@ -36,6 +66,7 @@ class ProfileController extends Controller
 
         return Redirect::route('profile.edit')->with('status', 'profile-updated');
     }
+    **/
 
     /**
      * Delete the user's account.

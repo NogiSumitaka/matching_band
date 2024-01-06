@@ -31,53 +31,33 @@
                     <a href="{{ route('login') }}" class="text-sm text-gray-900 dark:text-gray-500 underline">Log in</a>
                 </div>
                 <div class="">
-                    <a href="/profile/{{ $user->id }}" class="text-sm text-gray-700 dark:text-gray-500 underline">Mypage</a>
+                    <a href="{{ url('/profile') }}" class="text-sm text-gray-700 dark:text-gray-500 underline">Mypage</a>
                 </div>
             </div>
             
-            <!-- Profile edit form -->
+            <!-- Profile -->
             <div>
-                <form action="/profile/{{ $user->id }}" method="POST">
-                    @csrf
-                    @method('PUT')
+                <div>
                     <div>
                         <p>ユーザー名</p>
-                        <input type="text" name="user[name]" value="{{ $user->name }}" placeholder="例）マッチングバンド太郎">
+                        <p>{{ $user->name }}</p>
                     </div>
                     <div>
                         <p>好きなジャンル</p>
-                        @foreach($genres as $genre)
-                            <label>
-                                <input type="checkbox" value="{{ $genre->id }}" name="genres_array[]">
-                                    {{ $genre->genre }}
-                                </input>
-                            </label>
-                        @endforeach
+                        <p>{{ $genre->genre }}</p>
                     </div>
                     <div>
                         <p>活動場所</p>
-                        <select name="prefecture">
-                        @foreach($prefectures as $prefecture)
-                            <option value="{{ $prefecture->id }}">
-                                {{ $prefecture->prefecture }}
-                            </option>
-                        @endforeach
-                        </select>
+                        <p>{{ $prefecture->prefecture }}</p>
                     </div>
                     <div>
                         <p>やっている楽器</p>
-                        @foreach($insts as $inst)
-                            <label>
-                                <input type="checkbox" value="{{ $inst->id }}" name="insts_array[]">
-                                    {{ $inst->inst }}
-                                </input>
-                            </label>
-                        @endforeach
+                        <p>{{ $inst->inst }}</p>
                     </div> 
                     <div>
                         <p>自己紹介</p>
-                        <input type="text" name="user[introduction]" value="{{ $user->introduction }}" placeholder="好きなバンド：　趣味："/>
+                        <p>{{ $user->introduction }}</p>
                     </div>
-                    <input type="submit" value="保存"/>
-                </form>
+                    <div><a href="/profile/{{ $user->id }}/edit">編集</a></div>
+                </div>
             </div>

@@ -21,6 +21,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'introduction',
     ];
 
     /**
@@ -41,4 +42,16 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+    
+    public function genres(){
+        return $this->belongsToMany(Genre::class)->withTimestamps();
+    }
+    
+    public function prefectures(){
+        return $this->belongsToMany(Prefecture::class)->withTimestamps();
+    }
+    
+    public function insts(){
+        return $this->belongsToMany(Inst::class)->withTimestamps();
+    }
 }

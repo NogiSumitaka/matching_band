@@ -18,7 +18,8 @@ Route::get('/', [BandController::class, 'index']);
 Route::get('/create_band', [BandController::class, 'create']);
 Route::post('/bands',[BandController::class, 'store']);
 Route::get('/welcome/{band}',[BandController::class, 'show']);
-Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+Route::get('/profile', [ProfileController::class, 'edit']);
+Route::put('/profile/{user}', [ProfileController::class, 'update']);
 
 Route::get('/dashboard', function () {
     return view('dashboard');
