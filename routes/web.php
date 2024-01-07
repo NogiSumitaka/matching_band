@@ -14,21 +14,20 @@ use App\Http\Controllers\BandController;
 |
 */
 
-Route::get('/', [BandController::class, 'index']);
-Route::get('/create_band', [BandController::class, 'create']);
-Route::post('/bands',[BandController::class, 'store']);
-Route::get('/welcome/{band}',[BandController::class, 'show']);
-Route::get('/profile', [ProfileController::class, 'edit']);
-Route::put('/profile/{user}', [ProfileController::class, 'update']);
+Route::get('/', [BandController::class, 'welcome']);
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
-
-Route::middleware('auth')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+Route::controller(BandController::class)->middleware(['auth'])->group(function(){
+    Route::get('/index', [BandController::class, 'index']);
+    Route::get('/create_band', 'create');
+    Route::post('/bands', 'store');
+    Route::get('/welcome/{band}', 'show');
 });
+
+Route::controller(ProfileController::class)->middleware(['auth'])->group(function(){
+    Route::get('/profile', 'edit');
+    Route::put('/profile/{user}', 'update');
+});
+
+
 
 require __DIR__.'/auth.php';

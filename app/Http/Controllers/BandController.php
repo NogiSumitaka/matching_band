@@ -11,8 +11,15 @@ use Illuminate\Http\Request;
 
 class BandController extends Controller
 {
-    public function index(Request $request, Band $band){
+    public function welcome(Request $request, Band $band){
         return view('welcome')->with([
+            'bands' => $band->getPaginateByLimit(),
+            'user' => $request->user(),
+            ]);
+    }
+    
+    public function index(Request $request, Band $band){
+        return view('index')->with([
             'bands' => $band->getPaginateByLimit(),
             'user' => $request->user(),
             ]);
@@ -34,10 +41,12 @@ class BandController extends Controller
     {
         $input_band = $request['band'];
         $input_genre = $request->genres_array;
+        $input_prefecture = $request->prefecture;
         $input_inst = $request->insts_array;
         
         $band->fill($input_band)->save();
         $band->genres()->attach($input_genre);
+        $band->prefectures()->attach($input_prefecture);
         $band->insts()->attach($input_inst);
         return redirect('/');
     }
