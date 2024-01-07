@@ -31,7 +31,7 @@
                     <a href="{{ route('login') }}" class="text-sm text-gray-900 dark:text-gray-500 underline">Log in</a>
                 </div>
                 <div class="">
-                    <a href="/profile/{{ $user->id }}" class="text-sm text-gray-700 dark:text-gray-500 underline">Mypage</a>
+                    <a href="/profile" class="text-sm text-gray-700 dark:text-gray-500 underline">Mypage</a>
                 </div>
             </div>
             

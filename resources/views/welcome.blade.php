@@ -91,9 +91,15 @@
                     @foreach ($bands as $band)
                         <div class="post">
                             <h2 class="name">{{ $band->name }}</h2>
-                            <p class="body">ジャンル：pop</p>
-                            <p class="body">活動場所：tokyo</p>
-                            <p class="body">募集しているパート：drum</p>
+                            @foreach ($band->genres as $genre)
+                                <p class="body">ジャンル：{{ $genre->genre}}</p>
+                            @endforeach
+                            @foreach ($band->prefectures as $prefecture)
+                                <p class="body">活動場所：{{ $prefecture->prefecture }}</p>
+                            @endforeach
+                            @foreach ($band->insts as $inst)
+                                <p class="body">募集しているパート：{{ $inst->inst }}</p>
+                            @endforeach
                             <p class="body">演奏レベル:{{ $band->level }}</p>
                             <p class="body">{{ $band->introduction }}</p>
                             <div><a href="/welcome/{{ $band->id}}">詳細</a></div>
