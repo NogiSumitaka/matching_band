@@ -13,11 +13,9 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('messages', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('sender_id')->constrained('users');
-            $table->foreignId('reciever_id')->constrained('users');
-            $table->string('message', 300);
+        Schema::create('band_inst', function (Blueprint $table) {
+            $table->foreignId('band_id')->constrained('bands')->OnDelete('cascade');
+            $table->foreignId('inst_id')->constrained('insts');
             $table->timestamps();
         });
     }
@@ -29,6 +27,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('messages');
+        Schema::dropIfExists('band_inst');
     }
 };

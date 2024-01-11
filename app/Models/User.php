@@ -54,4 +54,8 @@ class User extends Authenticatable
     public function insts(){
         return $this->belongsToMany(Inst::class)->withTimestamps();
     }
+    
+    public function messages(){
+        return $this->hasMany(Message::class)->withTimestamps();
+    }
 }

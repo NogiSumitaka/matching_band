@@ -14,6 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::create('band_prefecture', function (Blueprint $table) {
+            $table->foreignId('band_id')->constrained('bands')->OnDelete('cascade');
             $table->foreignId('prefecture_id')->constrained('prefectures');
             $table->timestamps();
         });

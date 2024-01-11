@@ -26,6 +26,12 @@ Route::controller(BandController::class)->middleware(['auth'])->group(function()
 Route::controller(ProfileController::class)->middleware(['auth'])->group(function(){
     Route::get('/profile', 'edit');
     Route::put('/profile/{user}', 'update');
+    Route::get('/profile/message', 'enter_chat');
+    Route::post('/profile/message', 'send');
+});
+
+Route::controller(MessageController::class)->middleware(['auth'])->group(function(){
+    Route::post('/profile/message', 'send');
 });
 
 

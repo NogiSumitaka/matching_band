@@ -13,9 +13,10 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->dropColumn('level');
-            $table->dropColumn('introduction');
+        Schema::create('band_genre', function (Blueprint $table) {
+            $table->foreignId('band_id')->constrained('bands')->OnDelete('cascade');
+            $table->foreignId('genre_id')->constrained('genres');
+            $table->timestamps();
         });
     }
 
@@ -26,8 +27,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::table('users', function (Blueprint $table) {
-            //
-        });
+        Schema::dropIfExists('band_genre');
     }
 };

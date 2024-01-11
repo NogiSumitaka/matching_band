@@ -50,6 +50,16 @@ class ProfileController extends Controller
         $user->insts()->sync($input_inst);
         return redirect('/profile');
     }
+    
+    public function enter_chat()
+    {
+        return view('messages.chat');
+    }
+    
+    public function send()
+    {
+        return view('messages.chat');
+    }
 
     /**
      * Update the user's profile information.
