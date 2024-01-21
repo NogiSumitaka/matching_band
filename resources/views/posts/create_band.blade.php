@@ -45,6 +45,7 @@
                 <p>バンド紹介</p>
                 <input type="text" name="band[introduction]" placeholder="バンドの雰囲気：　やる曲の特徴：　よく使うスタジオ：　求める奏法：..."/>
             </div>
+            <input type="checkbox" value="{{ $user->id }}" name="band[creater_id]" checked class="hidden">
             <input type="submit" value="保存"/>
         </form>
     </div>

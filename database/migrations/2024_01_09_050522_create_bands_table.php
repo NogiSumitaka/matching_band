@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('bands', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained('users')->OnDelete('cascade');
+            $table->foreignId('creater_id')->constrained('users')->OnDelete('cascade');
             $table->string('name', 50);
             $table->string('image')->nullable();
             $table->integer('level');

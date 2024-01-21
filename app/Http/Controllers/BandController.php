@@ -29,8 +29,9 @@ class BandController extends Controller
         return view('posts.show')->with(['band' => $band]);
     }
     
-    public function create(Genre $genre, Prefecture $prefecture, Inst $inst){
+    public function create(Request $request, Genre $genre, Prefecture $prefecture, Inst $inst){
         return view('posts.create_band')->with([
+            'user' => $request->user(),
             'genres' => $genre->get(),
             'prefectures' => $prefecture->get(),
             'insts' => $inst->get(),

@@ -17,22 +17,20 @@ use App\Http\Controllers\BandController;
 Route::get('/', [BandController::class, 'welcome']);
 
 Route::controller(BandController::class)->middleware(['auth'])->group(function(){
-    Route::get('/index', [BandController::class, 'index']);
+    Route::get('/index', 'index');
     Route::get('/create_band', 'create');
     Route::post('/bands', 'store');
-    Route::get('/welcome/{band}', 'show');
+    Route::get('/index/{band}', 'show');
 });
 
 Route::controller(ProfileController::class)->middleware(['auth'])->group(function(){
     Route::get('/profile', 'edit');
     Route::put('/profile/{user}', 'update');
-    Route::get('/profile/message', 'enter_chat');
-    Route::post('/profile/message', 'send');
+    Route::get('/apply', 'show_apply');
+    Route::get('/apply/chatroom/user/{user}', 'chatroom');
+    Route::get('/apply/chatroom/band/{band}', 'chatroom');
 });
 
-Route::controller(MessageController::class)->middleware(['auth'])->group(function(){
-    Route::post('/profile/message', 'send');
-});
 
 
 

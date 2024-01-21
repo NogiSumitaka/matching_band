@@ -17,7 +17,7 @@ class ProfileController extends Controller
 {
     /**
      * Display the user's profile form.
-     */
+     
     public function show(User $user, Genre $genre, Prefecture $prefecture, Inst $inst){
         return view('profile.show_profile')->with([
             'user' => $user,
@@ -26,7 +26,11 @@ class ProfileController extends Controller
             'inst' => $inst,
             ]);
     }
+    */
     
+    /**
+     * Display the user's profile form.
+     */
     public function edit(Request $request, Genre $genre, Prefecture $prefecture, Inst $inst): View
     {
         return view('profile.edit', [
@@ -37,6 +41,9 @@ class ProfileController extends Controller
         ]);
     }
     
+    /**
+     * Update the user's profile.
+     */
     public function update(Request $request, User $user)
     {
         $input_user = $request['user'];
@@ -49,16 +56,6 @@ class ProfileController extends Controller
         $user->prefectures()->sync($input_prefecture);
         $user->insts()->sync($input_inst);
         return redirect('/profile');
-    }
-    
-    public function enter_chat()
-    {
-        return view('messages.chat');
-    }
-    
-    public function send()
-    {
-        return view('messages.chat');
     }
 
     /**
@@ -97,5 +94,23 @@ class ProfileController extends Controller
         $request->session()->regenerateToken();
 
         return Redirect::to('/');
+    }
+    
+    /* show_users_application_infomation*/
+    public function show_apply(Request $request)
+    {
+        $user = $request->user();
+        $user_band = $user->bands()->with('applications')->get();
+        $application = $user->load('applications');
+        
+        return view('apps.apply')->with([
+            'user_band_with_applicants' => $user_band,
+            'application' => $application,
+            ]);
+    }
+    
+    public function chatroom(Request $request, Band $band)
+    {
+        return view('apps.chatroom');
     }
 }

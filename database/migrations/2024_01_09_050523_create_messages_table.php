@@ -15,8 +15,9 @@ return new class extends Migration
     {
         Schema::create('messages', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('sender_id')->constrained('users')->OnDelete('cascade');
-            $table->foreignId('reciever_id')->constrained('users');
+            $table->foreignId('user_id')->constrained('users')->OnDelete('cascade');
+            $table->foreignId('band_id')->constrained('bands')->OnDelete('cascade');
+            $table->boolean('user_to_band')->default(false);
             $table->string('message', 300);
             $table->timestamps();
         });

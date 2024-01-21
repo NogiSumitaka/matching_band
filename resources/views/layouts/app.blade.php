@@ -58,7 +58,7 @@
                     <li class=""><a href="/profile">プロフィール編集</a></li>
                     <li><a href="/create_band">メンバー募集作成</a></li>
                     <li><a href="/profile">メンバー募集編集</a></li>
-                    <li><a href="/profile/apply">応募状況</a></li>
+                    <li><a href="/apply">応募状況</a></li>
                     <li>
                     <form method="POST" action="{{ route('logout') }}">
                         @csrf

@@ -54,7 +54,7 @@
                     @endforeach
                     <p class="body">演奏レベル:{{ $band->level }}</p>
                     <p class="body">{{ $band->introduction }}</p>
-                    <div><a href="/welcome/{{ $band->id}}">詳細</a></div>
+                    <div><a href="/index/{{ $band->id }}">詳細</a></div>
                 </div>
             @endforeach
         </div>

@@ -8,7 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class Band extends Model
 {
     protected $fillable = [
+        'creater_id',
         'name',
+        'image',
         'level',
         'introduction',
         ];
@@ -18,6 +20,10 @@ class Band extends Model
     public function getPaginateByLimit(int $limit_count = 3)
     {
         return $this->orderBy('updated_at','DESC')->paginate($limit_count);
+    }
+    
+    public function users(){
+        return $this->belongsTo(User::class);
     }
     
     public function genres(){
@@ -30,5 +36,13 @@ class Band extends Model
     
     public function insts(){
         return $this->belongsToMany(Inst::class);
+    }
+    
+    public function applications(){
+        return $this->belongsToMany(Application::class, 'applications', 'band_id', 'user_id')->withTimestamps();
+    }
+    
+    public function messages(){
+        return $this->belongsToMany(Message::class, 'messages', 'band_id', 'user_id')->withTimestamps();
     }
 }
