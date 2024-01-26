@@ -16,7 +16,11 @@
             <p class="body">演奏レベル:{{ $band->level }}</p>
             <p class="body">{{ $band->introduction }}</p>
         </div>
-        <button type="button" onclick="location.href='/profile/message'">応募する</button>
+        <form method="POST" action="/apply">
+            @csrf
+            <input type="hidden" name="band_id" value="{{ $band->id }}"/>
+            <input type="submit" value="応募する"/>
+        </form>
     </div>
 </x-app-layout>
 

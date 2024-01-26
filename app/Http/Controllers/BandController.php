@@ -44,8 +44,18 @@ class BandController extends Controller
             ]);
     }
     
+    /* バンドの詳細情報表示 */
     public function show(Band $band){
         return view('posts.show')->with(['band' => $band]);
+    }
+    
+    /* 応募状況保存*/
+    public function apply(Request $request){
+        $userId = $request->user()->id;
+        $bandId = $request->band_id;
+        $user = User::find($userId);
+        $user->applications()->attach($bandId);
+        return redirect()->route('user_chatroom', ['user' => $userId, 'band' => $bandId]);
     }
     
     public function create(Request $request, Genre $genre, Prefecture $prefecture, Inst $inst){

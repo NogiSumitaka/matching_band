@@ -22,6 +22,7 @@ Route::controller(BandController::class)->middleware(['auth'])->group(function()
     Route::get('/create_band', 'create');
     Route::post('/bands', 'store');
     Route::get('/index/{band}', 'show');
+    Route::post('/apply', 'apply');
 });
 
 Route::controller(ProfileController::class)->middleware(['auth'])->group(function(){

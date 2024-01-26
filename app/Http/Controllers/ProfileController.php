@@ -118,6 +118,7 @@ class ProfileController extends Controller
         return view('apps.chatroom')->with([
             'user' => $user,
             'messages' => $messages,
+            'band_id' => $band,
             ]);
     }
     
@@ -128,6 +129,7 @@ class ProfileController extends Controller
         return view('apps.chatroom')->with([
             'band' => $myband,
             'messages' => $messages,
+            'applicant_id' => $applicant,
             ]);
     }
     
