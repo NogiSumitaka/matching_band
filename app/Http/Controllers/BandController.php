@@ -8,29 +8,59 @@ use App\Models\Genre;
 use App\Models\Prefecture;
 use App\Models\Inst;
 use Illuminate\Http\Request;
+use App\Http\Controllers\getSearchingBands;
 
 class BandController extends Controller
 {
-    public function welcome(Request $request, Band $band){
+    public function welcome(Band $band, Genre $genre, Prefecture $prefecture, Inst $inst)
+    {
         return view('welcome')->with([
             'bands' => $band->getPaginateByLimit(),
-            'user' => $request->user(),
+            'genres' => $genre->get(),
+            'prefectures' => $prefecture->get(),
+            'insts' => $inst->get(),
             ]);
     }
     
-    public function index(Request $request, Band $band){
+    public function index(Band $band, Genre $genre, Prefecture $prefecture, Inst $inst)
+    {
         return view('index')->with([
             'bands' => $band->getPaginateByLimit(),
-            'user' => $request->user(),
+            'genres' => $genre->get(),
+            'prefectures' => $prefecture->get(),
+            'insts' => $inst->get(),
             ]);
     }
     
+    /*絞り込み検索*/
+    public function search(Request $request, Band $band, Genre $genre, Prefecture $prefecture, Inst $inst)
+    {
+        $bands = $band->getSearchingBands($request->inst, $request->genre, $request->prefecture);
+        return view('index')->with([
+            'bands' => $bands,
+            'genres' => $genre->get(),
+            'prefectures' => $prefecture->get(),
+            'insts' => $inst->get(),
+            ]);
+    }
+    
+    /* バンドの詳細情報表示 */
     public function show(Band $band){
         return view('posts.show')->with(['band' => $band]);
     }
     
-    public function create(Genre $genre, Prefecture $prefecture, Inst $inst){
+    /* 応募状況保存*/
+    public function apply(Request $request){
+        $userId = $request->user()->id;
+        $bandId = $request->band_id;
+        $user = User::find($userId);
+        $user->applications()->attach($bandId);
+        return redirect()->route('user_chatroom', ['user' => $userId, 'band' => $bandId]);
+    }
+    
+    public function create(Request $request, Genre $genre, Prefecture $prefecture, Inst $inst){
         return view('posts.create_band')->with([
+            'user' => $request->user(),
             'genres' => $genre->get(),
             'prefectures' => $prefecture->get(),
             'insts' => $inst->get(),

@@ -13,8 +13,13 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('band_inst', function (Blueprint $table) {
-            $table->foreignId('inst_id')->constrained('insts');
+        Schema::create('bands', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('creater_id')->constrained('users')->OnDelete('cascade');
+            $table->string('name', 50);
+            $table->string('image')->nullable();
+            $table->integer('level');
+            $table->string('introduction', 300);
             $table->timestamps();
         });
     }
@@ -26,6 +31,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('band_inst');
+        Schema::dropIfExists('bands');
     }
 };

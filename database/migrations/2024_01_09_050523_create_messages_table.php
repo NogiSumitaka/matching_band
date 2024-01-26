@@ -13,8 +13,12 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('band_prefecture', function (Blueprint $table) {
-            $table->foreignId('prefecture_id')->constrained('prefectures');
+        Schema::create('messages', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('user_id')->constrained('users')->OnDelete('cascade');
+            $table->foreignId('band_id')->constrained('bands')->OnDelete('cascade');
+            $table->boolean('user_to_band')->default(false);
+            $table->string('message', 300);
             $table->timestamps();
         });
     }
@@ -26,6 +30,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('band_prefecture');
+        Schema::dropIfExists('messages');
     }
 };

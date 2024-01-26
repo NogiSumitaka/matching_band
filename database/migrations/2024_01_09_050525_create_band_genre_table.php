@@ -13,8 +13,10 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table('band_genre', function (Blueprint $table) {
-            $table->foreignId('band_id')->constrained('bands');
+        Schema::create('band_genre', function (Blueprint $table) {
+            $table->foreignId('band_id')->constrained('bands')->OnDelete('cascade');
+            $table->foreignId('genre_id')->constrained('genres');
+            $table->timestamps();
         });
     }
 
@@ -25,8 +27,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::table('band_genre', function (Blueprint $table) {
-            //
-        });
+        Schema::dropIfExists('band_genre');
     }
 };
