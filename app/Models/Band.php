@@ -39,10 +39,10 @@ class Band extends Model
     }
     
     public function applications(){
-        return $this->belongsToMany(Application::class, 'applications', 'band_id', 'user_id')->withTimestamps();
+        return $this->belongsToMany(User::class, 'applications', 'band_id', 'user_id');/*->withTimestamps();*/
     }
     
     public function messages(){
-        return $this->belongsToMany(Message::class, 'messages', 'band_id', 'user_id')->withTimestamps();
+        return $this->belongsToMany(User::class, 'messages', 'band_id', 'user_id')->withTimestamps();
     }
 }

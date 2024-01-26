@@ -99,17 +99,18 @@ class ProfileController extends Controller
     /* show_users_application_infomation*/
     public function show_apply(Request $request)
     {
-        $user = $request->user();
-        $user_band = $user->bands()->with('applications')->get();
-        $application = $user->load('applications');
+        $userId = $request->user()->id;
+        $bands = User::find($userId)->applications;
+        $mybands = User::find($userId)->bands;
         
         return view('apps.apply')->with([
-            'user_band_with_applicants' => $user_band,
-            'application' => $application,
+            'user' => $request->user(),
+            'bands' => $bands,
+            'mybands' => $mybands,
             ]);
     }
     
-    public function chatroom(Request $request, Band $band)
+    public function user_chatroom(User $user)
     {
         return view('apps.chatroom');
     }

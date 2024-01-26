@@ -45,7 +45,7 @@ class User extends Authenticatable
     ];
     
     public function bands(){
-        return $this->hasMany(Band::class);
+        return $this->hasMany(Band::class,'creater_id');
     }
     
     public function genres(){
@@ -61,10 +61,10 @@ class User extends Authenticatable
     }
     
     public function messages(){
-        return $this->belongsToMany(Message::class, 'messages', 'user_id', 'band_id')->withTimestamps();
+        return $this->belongsToMany(Band::class, 'messages', 'user_id', 'band_id')->withTimestamps();
     }
     
     public function applications(){
-        return $this->belongsToMany(Application::class, 'applications', 'user_id', 'band_id')->withTimestamps();
+        return $this->belongsToMany(Band::class, 'applications', 'user_id', 'band_id');/*->withTimestamps();*/
     }
 }
