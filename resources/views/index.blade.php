@@ -1,39 +1,32 @@
 <x-app-layout>
     <!-- Search Menu -->
-    <div class="flex justify-center">
-        <div>
-            <label for="inst_selecter">楽器:</label>
-            <select name="楽器" id="inst_selecter">
-                <option value="guitar">guitar</option>
-                <option value="bass">bass</option>
-                <option value="drum">drum</option>
-                <option value="vocal">vocal</option>
-                <option value="keyboard">keyboard</option>
-            </select>
-        </div>
-        <div>
-            <label for="genre_selecter">ジャンル:</label>
-            <select name="ジャンル" id="genre_selecter">
-                <option value="pop">pop</option>
-                <option value="rock">rock</option>
-                <option value="jazz">jazz</option>
-                <option value="R＆B">R＆B</option>
-                <option value="altanative">altanative</option>
-            </select>
-        </div>
-        <div>
-            <label for="prefecture_selecter">活動場所:</label>
-            <select name="活動場所" id="prefecture_selecter">
-                <option value="tokyo">東京</option>
-                <option value="osaka">大阪</option>
-                <option value="nagoya">名古屋</option>
-                <option value="kitakyusyu">北九州</option>
-                <option value="sendai">仙台</option>
-            </select>
-        </div>
-        <div>
-            <button type="submit">絞り込み検索</button>
-        </div>
+    <div>
+        <form method="POST" action="/search" class="flex flex-col items-center">
+            @csrf
+            <div class="flex">
+                <label for="insts">募集パート：</label>
+                <select name="inst" id="insts">
+                @foreach ($insts as $inst)
+                    <option value="{{ $inst->id }}">{{ $inst->inst }}</option>
+                @endforeach
+                </select>
+                
+                <label for="genres">ジャンル：</label>
+                <select name="genre" id="genres">
+                @foreach ($genres as $genre)
+                    <option value="{{ $genre->id }}">{{ $genre->genre }}</option>
+                @endforeach
+                </select>
+                
+                <label for="prefectures">活動エリア：</label>
+                <select name="prefecture" id="prefectures">
+                @foreach ($prefectures as $prefecture)
+                    <option value="{{ $prefecture->id }}">{{ $prefecture->prefecture }}</option>
+                @endforeach
+                </select>
+            </div>
+            <input type="submit" value="絞り込み検索"/>
+        </form>
     </div>
     
     <!-- Post -->

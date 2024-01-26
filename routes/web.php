@@ -18,6 +18,7 @@ Route::get('/', [BandController::class, 'welcome']);
 
 Route::controller(BandController::class)->middleware(['auth'])->group(function(){
     Route::get('/index', 'index');
+    Route::post('/search', 'search');
     Route::get('/create_band', 'create');
     Route::post('/bands', 'store');
     Route::get('/index/{band}', 'show');

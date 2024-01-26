@@ -45,4 +45,18 @@ class Band extends Model
     public function messages(){
         return $this->belongsToMany(User::class, 'messages', 'band_id', 'user_id')->withPivot(['user_to_band', 'message', 'updated_at'])->withTimestamps();
     }
+    
+    /*inst, genre, prefectureのパラメータを用いて該当するbandを取得*/
+    public function getSearchingBands($inst = null, $genre = null, $prefecture = null) 
+    {
+        $results = $this->whereHas('insts', function ($query) use ($inst) {
+                $query->where('inst_id', $inst);
+            })->whereHas('genres', function ($query) use ($genre) {
+                $query->where('genre_id', $genre);
+            })->whereHas('prefectures', function ($query) use ($prefecture) {
+                $query->where('prefecture_id', $prefecture);
+            })->orderBy('updated_at','DESC')->paginate(3);
+            
+        return $results;
+    }
 }
