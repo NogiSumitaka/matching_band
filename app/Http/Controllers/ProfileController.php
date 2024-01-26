@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\View\View;
 use App\Models\User;
+use App\Models\Band;
 use App\Models\Genre;
 use App\Models\Prefecture;
 use App\Models\Inst;
@@ -110,8 +111,39 @@ class ProfileController extends Controller
             ]);
     }
     
-    public function user_chatroom(User $user)
+    /* 応募したバンドとのチャット画面を表示*/
+    public function user_chatroom(User $user, $band)
     {
-        return view('apps.chatroom');
+        $messages = $user->messages()->where('band_id' , $band)->get();
+        return view('apps.chatroom')->with([
+            'user' => $user,
+            'messages' => $messages,
+            ]);
+    }
+    
+    /* 応募者とのチャット画面を表示*/
+    public function band_chatroom(Band $myband, $applicant)
+    {
+        $messages = $myband->messages()->where('user_id' , $applicant)->get();
+        return view('apps.chatroom')->with([
+            'band' => $myband,
+            'messages' => $messages,
+            ]);
+    }
+    
+    /* Store message */
+    public function store(Request $request)
+    {
+        $userId = $request->user_id;
+        $bandId = $request->band_id;
+        if ($request->user_to_band == true){
+            $user = User::find($userId);
+            $user->messages()->attach($bandId, ['user_to_band' => $request->user_to_band, 'message' => $request->message]);
+            return redirect()->route('user_chatroom', ['user' => $userId, 'band' => $bandId]);
+        } else {
+            $band = Band::find($bandId);
+            $band->messages()->attach($userId, ['user_to_band' => $request->user_to_band, 'message' => $request->message]);
+            return redirect()->route('band_chatroom', ['myband' => $bandId, 'applicant' => $userId]);
+        }
     }
 }

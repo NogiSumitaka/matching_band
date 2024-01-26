@@ -61,10 +61,10 @@ class User extends Authenticatable
     }
     
     public function messages(){
-        return $this->belongsToMany(Band::class, 'messages', 'user_id', 'band_id')->withTimestamps();
+        return $this->belongsToMany(Band::class, 'messages', 'user_id', 'band_id')->withPivot(['user_to_band', 'message', 'updated_at'])->withTimestamps();
     }
     
     public function applications(){
-        return $this->belongsToMany(Band::class, 'applications', 'user_id', 'band_id');/*->withTimestamps();*/
+        return $this->belongsToMany(Band::class, 'applications', 'user_id', 'band_id');
     }
 }

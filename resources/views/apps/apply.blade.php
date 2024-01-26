@@ -6,7 +6,7 @@
             <p class="text-lg ">{{ $band->name }}</p>
             <div class="ml-auto">
                 <a href='/index/{{ $band->id }}' class="rounded-md px-4 py-1 border border-gray-800 bg-gray-300">詳細</a>
-                <a href='/apply/chatroom/user/{{ $user->id }}' class="rounded-md px-4 py-1 bg-blue-400 text-neutral-50">chat</a>
+                <a href='/apply/chatroom/user/{{ $user->id }}/{{ $band->id }}' class="rounded-md px-4 py-1 bg-blue-400 text-neutral-50">chat</a>
             </div>
         </div>
     @endforeach
@@ -21,7 +21,7 @@
                     <p class="text-lg">{{ $applicant->name }}</p>
                     <div class="ml-auto">
                         <a href='/index/3' class="rounded-md px-4 py-1 border border-gray-800 bg-gray-300">詳細</a>
-                        <a href='/apply/chatroom/band/{{ $myband->id }}' class="rounded-md px-4 py-1 bg-blue-400 text-neutral-50">chat</a>
+                        <a href="/apply/chatroom/band/{{$myband->id}}/{{$applicant->id}}" class="rounded-md px-4 py-1 bg-blue-400 text-neutral-50">chat</a>
                     </div>
                 </div>
             </div>

@@ -27,8 +27,9 @@ Route::controller(ProfileController::class)->middleware(['auth'])->group(functio
     Route::get('/profile', 'edit');
     Route::put('/profile/{user}', 'update');
     Route::get('/apply', 'show_apply');
-    Route::get('/apply/chatroom/user/{user}', 'user_chatroom');
-    Route::get('/apply/chatroom/band/{band}', 'band_chatroom');
+    Route::get('/apply/chatroom/user/{user}/{band}', 'user_chatroom')->name('user_chatroom');
+    Route::get('/apply/chatroom/band/{myband}/{applicant}', 'band_chatroom')->name('band_chatroom');
+    Route::post('/chat/message', 'store');
 });
 
 

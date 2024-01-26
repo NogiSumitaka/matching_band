@@ -43,6 +43,6 @@ class Band extends Model
     }
     
     public function messages(){
-        return $this->belongsToMany(User::class, 'messages', 'band_id', 'user_id')->withTimestamps();
+        return $this->belongsToMany(User::class, 'messages', 'band_id', 'user_id')->withPivot(['user_to_band', 'message', 'updated_at'])->withTimestamps();
     }
 }
