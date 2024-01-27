@@ -12,6 +12,7 @@ use App\Http\Controllers\getSearchingBands;
 
 class BandController extends Controller
 {
+    /* Guest view */
     public function welcome(Band $band, Genre $genre, Prefecture $prefecture, Inst $inst)
     {
         return view('welcome')->with([
@@ -22,6 +23,7 @@ class BandController extends Controller
             ]);
     }
     
+    /* Show index */
     public function index(Band $band, Genre $genre, Prefecture $prefecture, Inst $inst)
     {
         return view('index')->with([
@@ -32,7 +34,7 @@ class BandController extends Controller
             ]);
     }
     
-    /*絞り込み検索*/
+    /* Refine search */
     public function search(Request $request, Band $band, Genre $genre, Prefecture $prefecture, Inst $inst)
     {
         $bands = $band->getSearchingBands($request->inst, $request->genre, $request->prefecture);

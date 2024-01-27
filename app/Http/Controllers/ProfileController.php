@@ -18,19 +18,6 @@ class ProfileController extends Controller
 {
     /**
      * Display the user's profile form.
-     
-    public function show(User $user, Genre $genre, Prefecture $prefecture, Inst $inst){
-        return view('profile.show_profile')->with([
-            'user' => $user,
-            'genre' => $genre,
-            'prefecture' => $prefecture,
-            'inst' => $inst,
-            ]);
-    }
-    */
-    
-    /**
-     * Display the user's profile form.
      */
     public function edit(Request $request, Genre $genre, Prefecture $prefecture, Inst $inst): View
     {
@@ -58,7 +45,32 @@ class ProfileController extends Controller
         $user->insts()->sync($input_inst);
         return redirect('/profile');
     }
-
+    
+    /* Show own band infomation edit form*/
+    public function edit_band (Request $request){
+        $userId = $request->user()->id;
+        $bands = User::find($userId)->bands()->with(['genres','insts','prefectures'])->get();
+        return view('posts.update')->with([
+            'user' => $request->user(),
+            'bands' => $bands,
+            ]);
+    }
+    
+    /* Update own band infomation */
+    public function update_band(Request $request, Band $band){
+        $input_band = $request['band'];
+        $band->fill($input_band)->save();
+        $band->genres()->sync($request->genres_array);
+        $band->prefectures()->sync($request->prefecture);
+        $band->insts()->sync($request->insts_array);
+        return redirect('/profile/bands');
+    }
+    
+    /* Delete own band */
+    public function delete_band(Band $band){
+        $band->delete();
+        return redirect('/profile/bands');
+    }
     /**
      * Update the user's profile information.
      */
@@ -97,7 +109,7 @@ class ProfileController extends Controller
         return Redirect::to('/');
     }
     
-    /* show_users_application_infomation*/
+    /* Show user's application infomation */
     public function show_apply(Request $request)
     {
         $userId = $request->user()->id;

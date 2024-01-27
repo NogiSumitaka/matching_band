@@ -1,10 +1,7 @@
 <x-app-layout>
-    <div>
-        <p><a href="/profile/message">talk</a></p>    
-    </div>
-
     <!-- Profile edit form -->
     <div>
+        <h1>プロフィール編集</h1>
         <form action="/profile/{{ $user->id }}" method="POST">
             @csrf
             @method('PUT')
