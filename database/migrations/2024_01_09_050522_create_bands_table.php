@@ -16,10 +16,10 @@ return new class extends Migration
         Schema::create('bands', function (Blueprint $table) {
             $table->id();
             $table->foreignId('creater_id')->constrained('users')->OnDelete('cascade');
-            $table->string('name', 50);
+            $table->string('name', 20);
             $table->string('image')->nullable();
             $table->integer('level');
-            $table->string('introduction', 300);
+            $table->string('introduction', 100);
             $table->timestamps();
         });
     }

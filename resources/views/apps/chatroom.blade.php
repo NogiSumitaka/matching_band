@@ -17,8 +17,8 @@
                     <input type="hidden" name="user_id" value="{{$user->id}}">
                     <input type="hidden" name="band_id" value="{{$band_id}}">
                     <input type="hidden" name="user_to_band" value=1>
-                    <input type="text" name="message" class="rounded-md w-lg ml-auto"/>
-                    <input type="submit" value="送信" class="rounded-md px-4 py-1 bg-blue-400 text-neutral-50"/>
+                    <textarea name="message"  class="resize ml-auto" rows="2"></textarea>
+                    <input type="submit" value="送信" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"/>
                 </form>
             </div>
         </div>
@@ -35,13 +35,22 @@
             <div class="px-4 py-1 rounded-md border border-gray-800 bg-white w-3/4 min-w-screen-sm">
                 <form method="POST" action="/chat/message" class="flex bg-white">
                     @csrf
-                    <input type="hidden" name="user_id" value="{{ $applicant_id }}">
-                    <input type="hidden" name="band_id" value="{{ $band->id }}">
-                    <input type="hidden" name="user_to_band" value=0>
-                    <input type="text" name="message" class="rounded-md w-lg ml-auto"/>
-                    <input type="submit" value="送信" class="rounded-md px-4 py-1 bg-blue-400 text-neutral-50"/>
+                    <input type="hidden" name="user_id" value="{{ $applicant_id }}" class="hidden">
+                    <input type="hidden" name="band_id" value="{{ $band->id }}" class="hidden">
+                    <input type="hidden" name="user_to_band" value=0 class="hidden">
+                    <textarea name="message"  class="resize ml-auto" rows="2"></textarea>
+                    <input type="submit" value="送信" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"/>
                 </form>
             </div>
         </div>
     @endif
+    <script>
+        $('textarea.resize').on('keydown', function(){
+        var textarea = this;
+        setTimeout(function(){
+            textarea.style.cssText = 'height : auto;';
+            textarea.style.cssText = 'height : ' + textarea.scrollHeight + 'px;';
+            },0);
+        });
+    </script>
 </x-app-layout>
