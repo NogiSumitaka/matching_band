@@ -19,9 +19,9 @@ class BandSeeder extends Seeder
     {
         DB::table('bands')->insert([
             'creater_id' => 1,
-            'name' => 'band1-1',
+            'name' => 'bandbandbandbandband',
             'level' => 5,
-            'introduction' => 'hello! I am band1-1.',
+            'introduction' => 'hello! I am band1-1.hello! I am band1-1.hello! I am band1-1.hello! I am band1-1.hello! I am band1-1.',
             'created_at' => now()->subDays(7),
             'updated_at' => now()->subDays(7),
             ]);
