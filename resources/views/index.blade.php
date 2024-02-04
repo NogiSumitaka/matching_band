@@ -32,17 +32,26 @@
     <!-- Post -->
     <div class="flex flex-col items-center my-8">
         <h1 class="text-xl font-bold underline">メンバー募集中バンド</h1>
-        <div>
+        <div class="w-3/4">
             @foreach ($bands as $band)
                 <div class="flex flex-col my-2 p-4 rounded-md shadow-md bg-white">
                     <h2 class="text-lg underline">{{ $band->name }}</h2>
+                    <div class="flex">
+                        <p>ジャンル：</p>
                     @foreach ($band->genres as $genre)
-                        <p class="body">ジャンル：{{ $genre->genre}}</p>
+                        <p class="mx-2">{{ $genre->genre}}</p>
                     @endforeach
+                    </div>
+                        
+                    
+                    <div class="flex">
+                        <p>募集パート：</p>
                     @foreach ($band->insts as $inst)
-                        <p class="body">募集しているパート：{{ $inst->inst }}</p>
+                        <p class="mx-2">{{ $inst->inst }}</p>
                     @endforeach
-                    <p class="body">{{ $band->introduction }}</p>
+                    </div>
+                        
+                    <p class="mt-2">{{ $band->introduction }}</p>
                     <div class="flex flex-row-reverse"><a href="/index/{{ $band->id}}" class="bg-white hover:bg-gray-100 text-gray-800 font-semibold py-1 px-4 border border-gray-400 rounded hover:shadow">詳細</a></div>
                 </div>
             @endforeach
