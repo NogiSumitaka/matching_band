@@ -30,7 +30,6 @@ Route::controller(ProfileController::class)->middleware(['auth'])->group(functio
     Route::put('/profile/{user}', 'update');
     Route::get('/profile/bands', 'editBand');
     Route::put('/profile/bands/{band}', 'updateBand');
-    Route::delete('profile/bands/{band}', 'deleteBand');
     Route::get('/apply', 'showApply');
     Route::get('/apply/chatroom/user/{user}/{band}', 'userChatroom')->name('user_chatroom');
     Route::get('/apply/chatroom/band/{myband}/{applicant}', 'bandChatroom')->name('band_chatroom');

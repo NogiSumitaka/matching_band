@@ -55,22 +55,7 @@
                 </div>
                 
             </form>
-            <form action="/profile/bands/{{ $band->id }}" id="form_{{ $band->id }}" method="post" class="flex flex-row-reverse mt-2">
-                    @csrf
-                    @method('DELETE')
-                    <button type="button" onclick="deletePost({{ $band->id }})" class="text-red-500 hover:underline hover:underline-red-700 mr-4">delete</button> 
-            </form>
         </div>
     @endforeach
     </div>
-    
-    <script>
-        function deletePost(id) {
-            'use strict'
-            
-            if (confirm('削除すると復元できません。\n本当に削除しますか？')) {
-                document.getElementById(`form_${id}`).submit();
-            }
-        }
-    </script>
 </x-app-layout>
