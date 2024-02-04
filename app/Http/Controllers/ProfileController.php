@@ -47,9 +47,10 @@ class ProfileController extends Controller
     }
     
     /* Show own band infomation edit form*/
-    public function edit_band (Request $request){
-        $userId = $request->user()->id;
-        $bands = User::find($userId)->bands()->with(['genres','insts','prefectures'])->get();
+    public function editBand (Request $request)
+    {
+        $user_id = $request->user()->id;
+        $bands = User::find($user_id)->bands()->with(['genres','insts','prefectures'])->get();
         return view('posts.update')->with([
             'user' => $request->user(),
             'bands' => $bands,
@@ -57,7 +58,8 @@ class ProfileController extends Controller
     }
     
     /* Update own band infomation */
-    public function update_band(Request $request, Band $band){
+    public function updateBand(Request $request, Band $band)
+    {
         $input_band = $request['band'];
         $band->fill($input_band)->save();
         $band->genres()->sync($request->genres_array);
@@ -67,7 +69,8 @@ class ProfileController extends Controller
     }
     
     /* Delete own band */
-    public function delete_band(Band $band){
+    public function deleteBand(Band $band)
+    {
         $band->delete();
         return redirect('/profile/bands');
     }
@@ -110,11 +113,11 @@ class ProfileController extends Controller
     }
     
     /* Show user's application infomation */
-    public function show_apply(Request $request)
+    public function showApply(Request $request)
     {
-        $userId = $request->user()->id;
-        $bands = User::find($userId)->applications;
-        $mybands = User::find($userId)->bands;
+        $user_id = $request->user()->id;
+        $bands = User::find($user_id)->applications;
+        $mybands = User::find($user_id)->bands;
         
         return view('apps.apply')->with([
             'user' => $request->user(),
@@ -124,7 +127,7 @@ class ProfileController extends Controller
     }
     
     /* 応募したバンドとのチャット画面を表示*/
-    public function user_chatroom(User $user, $band)
+    public function userChatroom(User $user, $band)
     {
         $messages = $user->messages()->where('band_id' , $band)->get();
         return view('apps.chatroom')->with([
@@ -135,7 +138,7 @@ class ProfileController extends Controller
     }
     
     /* 応募者とのチャット画面を表示*/
-    public function band_chatroom(Band $myband, $applicant)
+    public function bandChatroom(Band $myband, $applicant)
     {
         $messages = $myband->messages()->where('user_id' , $applicant)->get();
         return view('apps.chatroom')->with([
@@ -148,16 +151,16 @@ class ProfileController extends Controller
     /* Store message */
     public function store(Request $request)
     {
-        $userId = $request->user_id;
-        $bandId = $request->band_id;
+        $user_id = $request->user_id;
+        $band_id = $request->band_id;
         if ($request->user_to_band == true){
-            $user = User::find($userId);
-            $user->messages()->attach($bandId, ['user_to_band' => $request->user_to_band, 'message' => $request->message]);
-            return redirect()->route('user_chatroom', ['user' => $userId, 'band' => $bandId]);
+            $user = User::find($user_id);
+            $user->messages()->attach($band_id, ['user_to_band' => $request->user_to_band, 'message' => $request->message]);
+            return redirect()->route('user_chatroom', ['user' => $user_id, 'band' => $band_id]);
         } else {
-            $band = Band::find($bandId);
-            $band->messages()->attach($userId, ['user_to_band' => $request->user_to_band, 'message' => $request->message]);
-            return redirect()->route('band_chatroom', ['myband' => $bandId, 'applicant' => $userId]);
+            $band = Band::find($band_id);
+            $band->messages()->attach($user_id, ['user_to_band' => $request->user_to_band, 'message' => $request->message]);
+            return redirect()->route('band_chatroom', ['myband' => $band_id, 'applicant' => $user_id]);
         }
     }
 }
