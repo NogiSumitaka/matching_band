@@ -47,20 +47,24 @@ class BandController extends Controller
     }
     
     /* バンドの詳細情報表示 */
-    public function show(Band $band){
+    public function show(Band $band)
+    {
         return view('posts.show')->with(['band' => $band]);
     }
     
     /* 応募状況保存*/
-    public function apply(Request $request){
-        $userId = $request->user()->id;
-        $bandId = $request->band_id;
-        $user = User::find($userId);
-        $user->applications()->attach($bandId);
-        return redirect()->route('user_chatroom', ['user' => $userId, 'band' => $bandId]);
+    public function apply(Request $request)
+    {
+        $user_id = $request->user()->id;
+        $band_id = $request->band_id;
+        $user = User::find($user_id);
+        $user->applications()->attach($band_id);
+        return redirect()->route('user_chatroom', ['user' => $user_id, 'band' => $band_id]);
     }
     
-    public function create(Request $request, Genre $genre, Prefecture $prefecture, Inst $inst){
+    /*Show create band form*/
+    public function create(Request $request, Genre $genre, Prefecture $prefecture, Inst $inst)
+    {
         return view('posts.create_band')->with([
             'user' => $request->user(),
             'genres' => $genre->get(),
@@ -69,6 +73,7 @@ class BandController extends Controller
         ]);
     }
     
+    /*Store created band infomation*/
     public function store(Request $request, Band $band)
     {
         $input_band = $request['band'];

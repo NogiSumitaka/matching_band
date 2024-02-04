@@ -9,45 +9,64 @@
                 @method('PUT')
                 <div>
                     <p class="text-lg">バンド名</p>
-                    <input type="text" name="band[name]" value="{{ $band->name }}" placeholder="例）Matching Band">
+                    <input type="text" name="band[name]" value="{{ $band->name }}" placeholder="例）Matching Band" class="w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm">
                 </div>
+                
                 <div class="mt-4">
                     <p class="text-lg">ジャンル</p>
-                    @foreach($band->genres as $genre)
+                    @foreach($genres as $genre)
                         <label>
-                            <input type="checkbox" value="{{ $genre->id }}" name="genres_array[]">
-                                {{ $genre->genre }}
+                            <input type="checkbox" value="{{ $genre->id }}" name="genres_array[]"
+                                @foreach ($band->genres as $old_genre)
+                                    @if ($old_genre->id == $genre->id) 
+                                        checked 
+                                    @endif
+                                @endforeach>
+                                    {{ $genre->genre }}
                             </input>
                         </label>
                     @endforeach
                 </div>
+                
                 <div class="mt-4">
                     <p class="text-lg">活動場所</p>
                     <select name="prefecture">
-                    @foreach($band->prefectures as $prefecture)
-                        <option value="{{ $prefecture->id }}">
+                    @foreach($prefectures as $prefecture)
+                        <option value="{{ $prefecture->id }}"
+                            @foreach ($band->prefectures as $old_prefecture)
+                                @if ($old_prefecture->id == $prefecture->id) 
+                                    selected
+                                @endif
+                            @endforeach>
                             {{ $prefecture->prefecture }}
                         </option>
                     @endforeach
                     </select>
                 </div>
+                
                 <div class="mt-4">
                     <p class="text-lg">募集楽器</p>
-                    @foreach($band->insts as $inst)
+                    @foreach($insts as $inst)
                         <label>
-                            <input type="checkbox" value="{{ $inst->id }}" name="insts_array[]">
+                            <input type="checkbox" value="{{ $inst->id }}" name="insts_array[]"
+                                @foreach ($band->insts as $old_inst)
+                                    @if ($old_inst->id == $inst->id) 
+                                        checked 
+                                    @endif
+                                @endforeach>
                                 {{ $inst->inst }}
                             </input>
                         </label>
                     @endforeach
-                </div> 
+                </div>
+                
                 <div class="mt-4">
-                    <p class="text-lg">募集レベル</p>
-                    <input type="number" name="band[level]" value="{{ $band->level }}"placeholder="1~10"/>
+                    <p class="text-lg">募集レベル*　<span class="text-sm text-gray-500">*(初心者1~3，中級者4~7，上級者8~10)</span></p>
+                    <input type="number" name="band[level]" value="{{ $band->level }}"placeholder="1~10" class="border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm"/>
                 </div>
                 <div class="mt-4">
-                    <p class="text-lg">バンド紹介</p>
-                    <textarea name="band[introduction]" rows="4" value="{{ $band->introduction }}" placeholder="バンド紹介・メンバーに求めることなど..."></textarea>
+                    <p class="text-lg">バンド紹介文</p>
+                    <textarea name="band[introduction]" rows="4" placeholder="バンド紹介・メンバーに求めることなど..." class="w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm">{{ $band->introduction }}</textarea>
                 </div>
                 <div class="flex flex-row-reverse">
                     <input type="checkbox" value="{{ $user->id }}" name="band[creater_id]" checked class="hidden">
@@ -55,22 +74,7 @@
                 </div>
                 
             </form>
-            <form action="/profile/bands/{{ $band->id }}" id="form_{{ $band->id }}" method="post" class="flex flex-row-reverse mt-2">
-                    @csrf
-                    @method('DELETE')
-                    <button type="button" onclick="deletePost({{ $band->id }})" class="text-red-500 hover:underline hover:underline-red-700 mr-4">delete</button> 
-            </form>
         </div>
     @endforeach
     </div>
-    
-    <script>
-        function deletePost(id) {
-            'use strict'
-            
-            if (confirm('削除すると復元できません。\n本当に削除しますか？')) {
-                document.getElementById(`form_${id}`).submit();
-            }
-        }
-    </script>
 </x-app-layout>

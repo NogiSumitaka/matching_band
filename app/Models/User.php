@@ -44,27 +44,33 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
     
-    public function bands(){
+    public function bands()
+    {
         return $this->hasMany(Band::class,'creater_id');
     }
     
-    public function genres(){
+    public function genres()
+    {
         return $this->belongsToMany(Genre::class)->withTimestamps();
     }
     
-    public function prefectures(){
+    public function prefectures()
+    {
         return $this->belongsToMany(Prefecture::class)->withTimestamps();
     }
     
-    public function insts(){
+    public function insts()
+    {
         return $this->belongsToMany(Inst::class)->withTimestamps();
     }
     
-    public function messages(){
+    public function messages()
+    {
         return $this->belongsToMany(Band::class, 'messages', 'user_id', 'band_id')->withPivot(['user_to_band', 'message', 'updated_at'])->withTimestamps();
     }
     
-    public function applications(){
+    public function applications()
+    {
         return $this->belongsToMany(Band::class, 'applications', 'user_id', 'band_id');
     }
 }

@@ -22,27 +22,33 @@ class Band extends Model
         return $this->orderBy('updated_at','DESC')->paginate($limit_count);
     }
     
-    public function users(){
+    public function users()
+    {
         return $this->belongsTo(User::class);
     }
     
-    public function genres(){
+    public function genres()
+    {
         return $this->belongsToMany(Genre::class);
     }
     
-    public function prefectures(){
+    public function prefectures()
+    {
         return $this->belongsToMany(Prefecture::class);
     }
     
-    public function insts(){
+    public function insts()
+    {
         return $this->belongsToMany(Inst::class);
     }
     
-    public function applications(){
+    public function applications()
+    {
         return $this->belongsToMany(User::class, 'applications', 'band_id', 'user_id');/*->withTimestamps();*/
     }
     
-    public function messages(){
+    public function messages()
+    {
         return $this->belongsToMany(User::class, 'messages', 'band_id', 'user_id')->withPivot(['user_to_band', 'message', 'updated_at'])->withTimestamps();
     }
     
