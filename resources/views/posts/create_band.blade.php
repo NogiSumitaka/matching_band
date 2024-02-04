@@ -7,7 +7,7 @@
                 @csrf
                 <div>
                     <p class="text-lg">バンド名</p>
-                    <input type="text" name="band[name]" placeholder="例）Matching Band">
+                    <input type="text" name="band[name]" placeholder="例）Matching Band" class="w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm">
                 </div>
                 
                 <div class="mt-4">
@@ -44,13 +44,13 @@
                 </div>
                 
                 <div class="mt-4">
-                    <p class="text-lg">募集レベル</p>
-                    <input type="number" name="band[level]" placeholder="1~10"/>
+                    <p class="text-lg">募集レベル*　<span class="text-sm text-gray-500">*(初心者1~3，中級者4~7，上級者8~10)</span></p>
+                    <input type="number" name="band[level]" placeholder="1~10" class="w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm"/>
                 </div>
                 
                 <div class="mt-4">
                     <p class="text-lg">バンド紹介</p>
-                    <textarea name="band[introduction]" rows="4" placeholder="バンド紹介・メンバーに求めること等..."></textarea>
+                    <textarea name="band[introduction]" rows="4" placeholder="バンド紹介・メンバーに求めること等..." class="w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm"></textarea>
                 </div>
                 <div class="flex flex-row-reverse">
                     <input type="checkbox" value="{{ $user->id }}" name="band[creater_id]" checked class="hidden">

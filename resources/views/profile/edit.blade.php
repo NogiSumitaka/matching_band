@@ -20,7 +20,14 @@
                     <p class="text-lg">好きなジャンル</p>
                     @foreach($genres as $genre)
                         <label>
-                            <input type="checkbox" value="{{ $genre->id }}" name="genres_array[]">
+                            <input type="checkbox" value="{{ $genre->id }}" name="genres_array[]"
+                                @isset($user->genres)
+                                    @foreach ($user->genres as $old_genre)
+                                        @if ($old_genre->id == $genre->id) 
+                                            checked 
+                                        @endif
+                                    @endforeach
+                                @endisset>
                                 {{ $genre->genre }}
                             </input>
                         </label>
@@ -31,7 +38,14 @@
                     <p class="text-lg">活動場所</p>
                     <select name="prefecture">
                     @foreach($prefectures as $prefecture)
-                        <option value="{{ $prefecture->id }}">
+                        <option value="{{ $prefecture->id }}"
+                            @isset($user->prefectures)
+                                @foreach ($user->prefectures as $old_prefecture)
+                                    @if ($old_prefecture->id == $prefecture->id) 
+                                        selected
+                                    @endif
+                                @endforeach
+                            @endisset>
                             {{ $prefecture->prefecture }}
                         </option>
                     @endforeach
@@ -42,7 +56,14 @@
                     <p class="text-lg">やっている楽器</p>
                     @foreach($insts as $inst)
                         <label>
-                            <input type="checkbox" value="{{ $inst->id }}" name="insts_array[]">
+                            <input type="checkbox" value="{{ $inst->id }}" name="insts_array[]"
+                                @isset($user->insts)
+                                    @foreach ($user->insts as $old_inst)
+                                        @if ($old_inst->id == $inst->id) 
+                                            checked 
+                                        @endif
+                                    @endforeach
+                                @endisset>
                                 {{ $inst->inst }}
                             </input>
                         </label>

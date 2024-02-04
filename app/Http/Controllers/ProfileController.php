@@ -47,13 +47,16 @@ class ProfileController extends Controller
     }
     
     /* Show own band infomation edit form*/
-    public function editBand (Request $request)
+    public function editBand (Request $request, Genre $genre, Prefecture $prefecture, Inst $inst)
     {
         $user_id = $request->user()->id;
         $bands = User::find($user_id)->bands()->with(['genres','insts','prefectures'])->get();
         return view('posts.update')->with([
             'user' => $request->user(),
             'bands' => $bands,
+            'genres' => $genre->get(),
+            'prefectures' => $prefecture->get(),
+            'insts' => $inst->get(),
             ]);
     }
     
